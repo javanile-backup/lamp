@@ -9,7 +9,8 @@ services:
     volumes:
     - ./:/var/www/html:rw
     ports:
-    - "29100:80"
+    - "80:80"
+    - "443:443"
     links:
     - mysql
     restart: "no"
@@ -29,6 +30,6 @@ services:
   adminer:
     image: adminer
     ports:
-    - "29101:8080"
+    - "30303:8080"
     links:
     - mysql
