@@ -8,21 +8,22 @@ RUN docker-php-ext-install mysql
 RUN docker-php-ext-install mysqli
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
-ADD php.ini /usr/local/etc/php/php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
 RUN apt-get update && apt-get install -y cron rsyslog
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
-ADD crontab /etc/cron.d/crontab
-RUN rm -Rf /etc/cron.* && chmod a+x /etc/cron.d/crontab
+COPY crontab /etc/cron.d/crontab
+RUN rm -rf /etc/cron.* && chmod a+x /etc/cron.d/crontab
 RUN crontab /etc/cron.d/crontab
 
 ## Cleanup
 RUN rm -rf /var/lib/apt/lists/*
 
-## Web
+## Apache
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 ## Running
 COPY foreground.sh /usr/local/bin/
