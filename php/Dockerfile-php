@@ -1,0 +1,29 @@
+FROM php:5.6.30-apache
+
+## Extend PHP
+RUN apt-get update && apt-get install -y libc-client-dev libkrb5-dev
+RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+RUN docker-php-ext-install imap
+RUN docker-php-ext-install mysql
+RUN docker-php-ext-install mysqli
+RUN apt-get update && apt-get install -y zlib1g-dev
+RUN docker-php-ext-install zip
+ADD php.ini /usr/local/etc/php/php.ini
+
+## Crontab
+RUN apt-get update && apt-get install -y cron rsyslog
+RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
+ADD crontab /etc/cron.d/crontab
+RUN rm -Rf /etc/cron.* && chmod a+x /etc/cron.d/crontab
+RUN crontab /etc/cron.d/crontab
+
+## Cleanup
+RUN rm -rf /var/lib/apt/lists/*
+
+## Web
+RUN usermod -u 1000 www-data
+RUN groupmod -g 1000 www-data
+
+## Running
+COPY foreground.sh /usr/local/bin/
+CMD ["foreground.sh"]
