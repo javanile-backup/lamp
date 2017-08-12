@@ -24,6 +24,9 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN mkdir /etc/apache2/ssl
+COPY https.crt /etc/apache2/ssl/https.crt
+COPY https.pem /etc/apache2/ssl/https.pem
 
 ## Running
 COPY foreground.sh /usr/local/bin/
