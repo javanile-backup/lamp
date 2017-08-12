@@ -22,9 +22,6 @@ services:
     - MYSQL_DATABASE=database
     - MYSQL_USER=user
     - MYSQL_PASSWORD=user
-    volumes:
-    - ./data/mysql_dev/volume:/var/lib/mysql:rw
-    - ./storage/sql_dump:/sql_dump:rw
     restart: "no"
 
   adminer:
