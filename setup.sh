@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ls
+## Clone repository
+git clone https://github.com/javanile/docker-compose-lamp lamp
 
-#git clone https://github.com/javanile/docker-compose-lamp lamp
-#ln -s lamp/docker-compose.yml docker-compose.yml
-
+## Create symblink for docker-compose.yml
+ln -s lamp/docker-compose.yml docker-compose.yml
