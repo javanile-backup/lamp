@@ -8,7 +8,7 @@ curl -sL https://rawgit.com/javanile/lamp/master/setup.sh | bash -
 docker-compose up -d
 ```
 
-now visit http://localhost:9090
+now visit this: http://localhost/
 
 ## Install on Windows 
 

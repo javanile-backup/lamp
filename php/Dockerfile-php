@@ -12,21 +12,24 @@ COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
 RUN apt-get update && apt-get install -y cron rsyslog
-RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
+RUN rm -rf /etc/cron.*
 COPY crontab /etc/cron.d/crontab
-RUN rm -rf /etc/cron.* && chmod a+x /etc/cron.d/crontab
+RUN chmod a+x /etc/cron.d/crontab
 RUN crontab /etc/cron.d/crontab
 
 ## Cleanup
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Apache
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN mkdir /etc/apache2/ssl
 COPY https.crt /etc/apache2/ssl/https.crt
 COPY https.pem /etc/apache2/ssl/https.pem
+RUN a2enmod rewrite
+RUN a2enmod ssl
 
 ## Running
 COPY foreground.sh /usr/local/bin/
