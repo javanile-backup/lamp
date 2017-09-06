@@ -25,6 +25,8 @@ services:
     - MYSQL_DATABASE=database
     - MYSQL_USER=user
     - MYSQL_PASSWORD=user
+    ports:
+    - "33060:3306"
     restart: "no"
 
   adminer:
