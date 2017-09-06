@@ -6,10 +6,13 @@ services:
     build:
       context: ./lamp/php/
       dockerfile: Dockerfile-php
+    environment:
+    # example: HTML_PUBLIC=public (for Laravel)
+    - HTML_PUBLIC=
     volumes:
     - ./:/var/www/html:rw
     ports:
-    - "80:80"
+    - "1080:80"
     - "443:443"
     links:
     - mysql
