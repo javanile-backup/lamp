@@ -7,3 +7,8 @@ git add .
 git add *
 git commit -m "sync"
 git push
+
+cd ..
+docker-compose stop
+docker-compose up -d --build
+docker-compose ps
