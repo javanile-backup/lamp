@@ -14,6 +14,23 @@ class Autologin {
     function database() {
         return $_ENV['ADMINER_DATABASE'];
     }
+
+    function loginForm() {
+        ?>
+        AAA
+        <table cellspacing="0">
+            <tr><th>System<td><select name='auth[driver]'><option value="server" selected>MySQL</select>
+            <tr><th>Server<td><input name="auth[server]" value="" title="hostname[:port]" placeholder="localhost" autocapitalize="off">
+            <tr><th>Username<td><input name="auth[username]" id="username" value="" placeholder="WordPress" autocapitalize="off">
+            <tr><th>Password<td><input type="password" name="auth[password]" placeholder="WordPress">
+            <tr><th>Database<td><input name="auth[db]" value="" autocapitalize="off" placeholder="WordPress">
+        </table>
+        <p><input type="submit" value="<?php echo lang('Login'); ?>">
+        <?php
+        echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
+        return true;
+    }
+
 }
 
 return new Autologin();
