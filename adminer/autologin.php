@@ -17,15 +17,15 @@ class Autologin {
 
     function loginForm() {
         ?>
-        AAA
         <table cellspacing="0">
-            <tr><th>System<td><select name='auth[driver]'><option value="server" selected>MySQL</select>
-            <tr><th>Server<td><input name="auth[server]" value="" title="hostname[:port]" placeholder="localhost" autocapitalize="off">
-            <tr><th>Username<td><input name="auth[username]" id="username" value="" placeholder="WordPress" autocapitalize="off">
-            <tr><th>Password<td><input type="password" name="auth[password]" placeholder="WordPress">
-            <tr><th>Database<td><input name="auth[db]" value="" autocapitalize="off" placeholder="WordPress">
+            <select name='auth[driver]'><option value="server" selected>MySQL</select>
+            <tr><th>Server<td><input name="auth[server]" value="<?=$_ENV['ADMINER_SERVER']?>" title="hostname[:port]" autocapitalize="off">
+            <tr><th>Username<td><input name="auth[username]" id="username" value="<?=$_ENV['ADMINER_USER']?>" autocapitalize="off">
+            <tr><th>Password<td><input type="password" name="auth[password]" value="<?=$_ENV['ADMINER_PASSWORD']?>">
+            <tr><th>Database<td><input name="auth[db]" value="<?=$_ENV['ADMINER_DATABASE']?>" autocapitalize="off" placeholder="WordPress">
         </table>
-        <p><input type="submit" value="<?php echo lang('Login'); ?>">
+        <p><input id="submit-button" type="submit" value="<?php echo lang('Login'); ?>">
+        <script>document.getElementById("submit-button").click()</script>
         <?php
         echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
         return true;
