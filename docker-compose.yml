@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile-php
     environment:
     # example: HTML_PUBLIC=public (for Laravel)
-    - HTML_PUBLIC=
+    - HTML_PUBLIC=public
     volumes:
     - ./:/var/www/html:rw
     ports:
