@@ -32,6 +32,14 @@ COPY https.pem /etc/apache2/ssl/https.pem
 RUN a2enmod rewrite
 RUN a2enmod ssl
 
+## Command-line utils
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
+    rm composer-setup.php
+RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+
 ## Running
 COPY foreground.sh /usr/local/bin/
 CMD ["foreground.sh"]
