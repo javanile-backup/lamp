@@ -18,9 +18,6 @@ COPY crontab /etc/cron.d/crontab
 RUN chmod a+x /etc/cron.d/crontab
 RUN crontab /etc/cron.d/crontab
 
-## Cleanup
-RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
-
 ## Apache
 RUN usermod -u 1000 www-data
 RUN groupmod -g 1000 www-data
@@ -39,6 +36,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+
+## Cleanup
+RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Running
 COPY foreground.sh /usr/local/bin/
