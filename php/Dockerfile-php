@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo pdo_mysql
 RUN apt-get update && apt-get install -y php5-intl
+RUN find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} +
+RUN echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
