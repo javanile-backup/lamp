@@ -42,3 +42,4 @@ services:
     - "30303:8080"
     links:
     - mysql
+    restart: "no"
