@@ -50,28 +50,22 @@ services:
     links:
     - mysql
 
-  mysql:
-    image: mysql:5.5
-    environment:
-    - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=database
-    - MYSQL_USER=user
-    - MYSQL_PASSWORD=user
-    ports:
-    - "33060:3306"
-    restart: "no"
-
   adminer:
     build:
       context: ./lamp/adminer/
       dockerfile: Dockerfile-adminer
-    environment:
-    - ADMINER_SERVER=mysql
-    - ADMINER_USER=root
-    - ADMINER_PASSWORD=root
-    - ADMINER_DATABASE=database
+    env_file:
+    - ./.lamp.env
     ports:
     - "30303:8080"
     links:
     - mysql
+    restart: "no"
+
+  mysql:
+    image: mysql:5.5
+    env_file:
+    - ./.lamp.env
+    ports:
+    - "33060:3306"
     restart: "no"
