@@ -9,13 +9,15 @@
 class Autologin {
     function credentials() {
         //if (!empty($_GET['username'])) return array(SERVER, $_GET["username"], get_password());
-        return array($_ENV['ADMINER_SERVER'], $_ENV['ADMINER_USER'], $_ENV['ADMINER_PASSWORD']);
+        //return array($_ENV['ADMINER_SERVER'], $_ENV['ADMINER_USER'], $_ENV['ADMINER_PASSWORD']);
+        return array('mysql', 'root', $_ENV['MYSQL_ROOT_PASSWORD']);
     }
     function database() {
-        return $_ENV['ADMINER_DATABASE'];
+        return $_ENV['MYSQL_DATABASE'];
     }
 
     function loginForm() {
+        /*
         ?>
         <table cellspacing="0">
             <select name='auth[driver]'><option value="server" selected>MySQL</select>
@@ -29,8 +31,21 @@ class Autologin {
         <?php
         echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
         return true;
+        */
+        ?>
+        <table cellspacing="0">
+            <select name='auth[driver]'><option value="server" selected>MySQL</select>
+            <tr><th>Server<td><input name="auth[server]" value="<?='mysql'?>" title="hostname[:port]" autocapitalize="off">
+            <tr><th>Username<td><input name="auth[username]" id="username" value="<?='root'?>" autocapitalize="off">
+            <tr><th>Password<td><input type="password" name="auth[password]" value="<?=$_ENV['MYSQL_ROOT_PASSWORD']?>">
+            <tr><th>Database<td><input name="auth[db]" value="<?=$_ENV['MYSQL_DATABASE']?>" autocapitalize="off" placeholder="WordPress">
+        </table>
+        <p><input id="submit-button" type="submit" value="<?php echo lang('Login'); ?>">
+        <script>document.getElementById("submit-button").click()</script>
+        <?php
+        echo checkbox("auth[permanent]", 1, $_COOKIE["adminer_permanent"], lang('Permanent login')) . "\n";
+        return true;
     }
-
 }
 
 return new Autologin();
