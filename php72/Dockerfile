@@ -9,6 +9,9 @@ RUN docker-php-ext-install mysqli
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install gd
+RUN apt-get update && apt-get install -y libmcrypt-dev
+RUN docker-php-ext-install iconv mcrypt
 RUN apt-get update && apt-get install -y php5-intl
 RUN find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} +
 RUN echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini
@@ -45,4 +48,5 @@ RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Running
 COPY foreground.sh /usr/local/bin/
+WORKDIR /var/www/html
 CMD ["foreground.sh"]
