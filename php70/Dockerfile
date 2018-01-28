@@ -9,9 +9,13 @@ RUN docker-php-ext-install mysqli
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng12-dev
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install gd
 RUN apt-get update && apt-get install -y libmcrypt-dev
 RUN docker-php-ext-install iconv mcrypt
+RUN apt-get update && apt-get install -y libxslt-dev
+RUN docker-php-ext-install xsl
 RUN apt-get update && apt-get install -y php5-intl
 RUN find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} +
 RUN echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini
@@ -39,7 +43,7 @@ RUN a2enmod ssl
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
     rm composer-setup.php
-RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && \
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 

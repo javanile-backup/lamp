@@ -19,7 +19,7 @@ services:
     - "44356:443"
 
   php70:
-    build: ./lamp/php56/
+    build: ./lamp/php70/
     extends:
       service: php
     ports:
@@ -27,7 +27,7 @@ services:
     - "44370:443"
 
   php71:
-    build: ./lamp/php56/
+    build: ./lamp/php71/
     extends:
       service: php
     ports:
@@ -35,7 +35,7 @@ services:
     - "44371:443"
 
   php72:
-    build: ./lamp/php56/
+    build: ./lamp/php72/
     extends:
       service: php
     ports:
