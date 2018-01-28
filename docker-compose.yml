@@ -8,8 +8,6 @@ services:
     - ./lamp.env
     volumes:
     - ./:/var/www/html:rw
-    links:
-    - mysql
     restart: "no"
 
   php56:
@@ -19,6 +17,8 @@ services:
     ports:
     - "8056:80"
     - "44356:443"
+    links:
+    - mysql
 
   php70:
     build: ./lamp/php56/
@@ -27,6 +27,8 @@ services:
     ports:
     - "8070:80"
     - "44370:443"
+    links:
+    - mysql
 
   php71:
     build: ./lamp/php56/
@@ -35,6 +37,8 @@ services:
     ports:
     - "8071:80"
     - "44371:443"
+    links:
+    - mysql
 
   php72:
     build: ./lamp/php56/
@@ -43,6 +47,8 @@ services:
     ports:
     - "8072:80"
     - "44372:443"
+    links:
+    - mysql
 
   mysql:
     image: mysql:5.5
