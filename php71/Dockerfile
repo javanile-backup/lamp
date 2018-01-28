@@ -4,7 +4,6 @@ FROM php:7.1.13-apache
 RUN apt-get update && apt-get install -y libc-client-dev libkrb5-dev
 RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 RUN docker-php-ext-install imap
-RUN docker-php-ext-install mysql
 RUN docker-php-ext-install mysqli
 RUN apt-get update && apt-get install -y zlib1g-dev
 RUN docker-php-ext-install zip
@@ -16,9 +15,9 @@ RUN apt-get update && apt-get install -y libmcrypt-dev
 RUN docker-php-ext-install iconv mcrypt
 RUN apt-get update && apt-get install -y libxslt-dev
 RUN docker-php-ext-install xsl
-RUN apt-get update && apt-get install -y php5-intl
-RUN find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} +
-RUN echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini
+RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev g++
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install intl
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab

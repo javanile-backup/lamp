@@ -2,26 +2,21 @@ version: '2'
 
 services:
 
-  php:
-    build: ./lamp/php/
+  php56:
+    build: ./lamp/php56/
     env_file:
     - ./.lamp.env
     volumes:
     - ./:/var/www/html:rw
-    restart: "no"
-
-  php56:
-    build: ./lamp/php56/
-    extends:
-      service: php
     ports:
     - "8056:80"
     - "44356:443"
+    restart: "no"
 
   php70:
     build: ./lamp/php70/
     extends:
-      service: php
+      service: php56
     ports:
     - "8070:80"
     - "44370:443"
@@ -29,7 +24,7 @@ services:
   php71:
     build: ./lamp/php71/
     extends:
-      service: php
+      service: php56
     ports:
     - "8071:80"
     - "44371:443"
@@ -37,15 +32,13 @@ services:
   php72:
     build: ./lamp/php72/
     extends:
-      service: php
+      service: php56
     ports:
     - "8072:80"
     - "44372:443"
 
   adminer:
-    build:
-      context: ./lamp/adminer/
-      dockerfile: Dockerfile-adminer
+    build: ./lamp/adminer/
     env_file:
     - ./.lamp.env
     ports:
