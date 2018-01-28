@@ -3,20 +3,21 @@ version: '2'
 services:
 
   php:
-    build:
-      context: ./lamp/php/
-      dockerfile: Dockerfile-php
-    environment:
-    # example: HTML_PUBLIC=public (for Laravel)
-    - HTML_PUBLIC=public
+    env_file:
+    - ./lamp.env
     volumes:
     - ./:/var/www/html:rw
-    ports:
-    - "1080:80"
-    - "443:443"
     links:
     - mysql
     restart: "no"
+
+  php56:
+    build: ./lamp/php56/
+    extends:
+      service: php
+    ports:
+    - "8056:80"
+    - "44356:443"
 
   mysql:
     image: mysql:5.5
