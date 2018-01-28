@@ -3,6 +3,7 @@ version: '2'
 services:
 
   php:
+    build: ./lamp/php/
     env_file:
     - ./lamp.env
     volumes:
@@ -18,6 +19,30 @@ services:
     ports:
     - "8056:80"
     - "44356:443"
+
+  php70:
+    build: ./lamp/php56/
+    extends:
+      service: php
+    ports:
+    - "8070:80"
+    - "44370:443"
+
+  php71:
+    build: ./lamp/php56/
+    extends:
+      service: php
+    ports:
+    - "8071:80"
+    - "44371:443"
+
+  php72:
+    build: ./lamp/php56/
+    extends:
+      service: php
+    ports:
+    - "8072:80"
+    - "44372:443"
 
   mysql:
     image: mysql:5.5
