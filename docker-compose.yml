@@ -11,31 +11,52 @@ services:
     ports:
     - "8056:80"
     - "44356:443"
+    links:
+    - mysql55
+    - mysql56
     restart: "no"
 
   php70:
     build: ./lamp/php70/
-    extends:
-      service: php56
+    env_file:
+    - ./.lamp.env
+    volumes:
+    - ./:/var/www/html:rw
     ports:
     - "8070:80"
-    #- "44370:443"
+    - "44370:443"
+    links:
+    - mysql55
+    - mysql56
+    restart: "no"
 
   php71:
     build: ./lamp/php71/
-    extends:
-      service: php56
+    env_file:
+    - ./.lamp.env
+    volumes:
+    - ./:/var/www/html:rw
     ports:
     - "8071:80"
-    #- "44371:443"
+    - "44371:443"
+    links:
+    - mysql55
+    - mysql56
+    restart: "no"
 
   php72:
     build: ./lamp/php72/
-    extends:
-      service: php56
+    env_file:
+    - ./.lamp.env
+    volumes:
+    - ./:/var/www/html:rw
     ports:
     - "8072:80"
-    #- "44372:443"
+    - "44372:443"
+    links:
+    - mysql55
+    - mysql56
+    restart: "no"
 
   adminer55:
     build: ./lamp/adminer/
@@ -48,12 +69,14 @@ services:
     restart: "no"
 
   adminer56:
-    extends:
-      service: adminer55
+    build: ./lamp/adminer/
+    env_file:
+    - ./.lamp.env
     environment:
     - MYSQL_HOST=mysql56
     ports:
     - "9056:8080"
+    restart: "no"
 
   mysql55:
     image: mysql:5.5
@@ -63,5 +86,6 @@ services:
 
   mysql56:
     image: mysql:5.6
-    extends:
-      service: mysql55
+    env_file:
+    - ./.lamp.env
+    restart: "no"
