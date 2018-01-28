@@ -10,5 +10,5 @@ git push
 
 cd ..
 docker-compose stop
-docker-compose up -d --build
+docker-compose up -d --build --remove-orphans
 docker-compose ps
