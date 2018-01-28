@@ -5,7 +5,7 @@ services:
   php:
     build: ./lamp/php/
     env_file:
-    - ./lamp.env
+    - ./.lamp.env
     volumes:
     - ./:/var/www/html:rw
     restart: "no"
