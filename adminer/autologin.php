@@ -10,7 +10,7 @@ class Autologin {
     function credentials() {
         //if (!empty($_GET['username'])) return array(SERVER, $_GET["username"], get_password());
         //return array($_ENV['ADMINER_SERVER'], $_ENV['ADMINER_USER'], $_ENV['ADMINER_PASSWORD']);
-        return array('mysql', 'root', $_ENV['MYSQL_ROOT_PASSWORD']);
+        return array($_ENV['MYSQL_HOST'], 'root', $_ENV['MYSQL_ROOT_PASSWORD']);
     }
     function database() {
         return $_ENV['MYSQL_DATABASE'];
@@ -35,7 +35,7 @@ class Autologin {
         ?>
         <table cellspacing="0">
             <select name='auth[driver]'><option value="server" selected>MySQL</select>
-            <tr><th>Server<td><input name="auth[server]" value="<?='mysql'?>" title="hostname[:port]" autocapitalize="off">
+            <tr><th>Server<td><input name="auth[server]" value="<?=$_ENV['MYSQL_HOST']?>" title="hostname[:port]" autocapitalize="off">
             <tr><th>Username<td><input name="auth[username]" id="username" value="<?='root'?>" autocapitalize="off">
             <tr><th>Password<td><input type="password" name="auth[password]" value="<?=$_ENV['MYSQL_ROOT_PASSWORD']?>">
             <tr><th>Database<td><input name="auth[db]" value="<?=$_ENV['MYSQL_DATABASE']?>" autocapitalize="off" placeholder="WordPress">

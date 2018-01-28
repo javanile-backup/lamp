@@ -19,7 +19,7 @@ services:
       service: php56
     ports:
     - "8070:80"
-    - "44370:443"
+    #- "44370:443"
 
   php71:
     build: ./lamp/php71/
@@ -27,7 +27,7 @@ services:
       service: php56
     ports:
     - "8071:80"
-    - "44371:443"
+    #- "44371:443"
 
   php72:
     build: ./lamp/php72/
@@ -35,18 +35,33 @@ services:
       service: php56
     ports:
     - "8072:80"
-    - "44372:443"
+    #- "44372:443"
 
-  adminer:
+  adminer55:
     build: ./lamp/adminer/
     env_file:
     - ./.lamp.env
+    environment:
+    - MYSQL_HOST=mysql55
     ports:
-    - "8080:8080"
+    - "9055:8080"
     restart: "no"
 
-  mysql:
+  adminer56:
+    extends:
+      service: adminer55
+    environment:
+    - MYSQL_HOST=mysql56
+    ports:
+    - "9056:8080"
+
+  mysql55:
     image: mysql:5.5
     env_file:
     - ./.lamp.env
     restart: "no"
+
+  mysql56:
+    image: mysql:5.6
+    extends:
+      service: mysql55
