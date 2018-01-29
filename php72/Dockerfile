@@ -37,9 +37,6 @@ RUN a2enmod ssl
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
     rm composer-setup.php
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
-    bash nodesource_setup.sh && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 ## Cleanup
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
