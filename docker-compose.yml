@@ -22,7 +22,7 @@ services:
     restart: "no"
 
   adminer:
-    build: ./lamp/adminer/
+    image: javanile/adminer
     env_file:
       - ./.lamp.env
     ports:
