@@ -5,26 +5,26 @@ services:
   php:
     build: ./lamp/php56/
     env_file:
-    - ./.lamp.env
+      - ./.lamp.env
     volumes:
-    - ./:/var/www/html:rw
+      - ./:/var/www/html:rw
     ports:
-    - "8080:80"
-    - "44300:443"
+      - "8080:80"
+      - "44300:443"
     links:
-    - mysql
+      - mysql
     restart: "no"
 
   mysql:
     image: mysql:5.5
     env_file:
-    - ./.lamp.env
+      - ./.lamp.env
     restart: "no"
 
   adminer:
-    build: ./lamp/adminer/
+    image: javanile/adminer
     env_file:
-    - ./.lamp.env
+      - ./.lamp.env
     ports:
-    - "8081:8080"
+      - "8081:8080"
     restart: "no"
