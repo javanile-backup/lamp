@@ -17,7 +17,7 @@ RUN apt-get install -y libxslt-dev && \
 RUN apt-get install -y php5-intl && \
     find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} + && \
     echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini
-RUN docker-php-ext-install mysql mysqli pdo pdo_mysql
+RUN docker-php-ext-install mysql mysqli pdo pdo_mysql sockets
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
