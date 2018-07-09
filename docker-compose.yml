@@ -2,29 +2,14 @@ version: '2'
 
 services:
 
-  php:
-    build: ./lamp/php56/
-    env_file:
-      - ./.lamp.env
-    volumes:
-      - ./:/var/www/html:rw
-    ports:
-      - "8080:80"
-      - "44300:443"
-    links:
-      - mysql
-    restart: "no"
+  php56:
+    build: ./5.6
 
-  mysql:
-    image: mysql:5.5
-    env_file:
-      - ./.lamp.env
-    restart: "no"
+  php70:
+    build: ./7.0
 
-  adminer:
-    image: javanile/adminer
-    env_file:
-      - ./.lamp.env
-    ports:
-      - "8081:8080"
-    restart: "no"
+  php71:
+    build: ./7.1
+
+  php72:
+    build: ./7.2

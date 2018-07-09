@@ -1,4 +1,7 @@
+## LAMP with PHP 5.6
 FROM php:5.6.30-apache
+MAINTAINER Francesco Bianco <info@javanile.org>
+WORKDIR /var/www/html
 RUN apt-get update
 
 ## Extend PHP
@@ -48,5 +51,4 @@ RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Running
 COPY foreground.sh /usr/local/bin/
-WORKDIR /var/www/html
 CMD ["foreground.sh"]
