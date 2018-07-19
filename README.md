@@ -13,3 +13,8 @@ Simple LAMP development stack's with docker-compose
 | [![](https://images.microbadger.com/badges/version/javanile/lamp:7.1.svg)](https://microbadger.com/images/javanile/lamp:7.1 "Get your own version badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/javanile/lamp:7.1.svg)](https://microbadger.com/images/javanile/lamp:7.1 "Get your own image badge on microbadger.com") |
 | [![](https://images.microbadger.com/badges/version/javanile/lamp:7.0.svg)](https://microbadger.com/images/javanile/lamp:7.0 "Get your own version badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/javanile/lamp:7.0.svg)](https://microbadger.com/images/javanile/lamp:7.0 "Get your own image badge on microbadger.com") |
 | [![](https://images.microbadger.com/badges/version/javanile/lamp:5.6.svg)](https://microbadger.com/images/javanile/lamp:5.6 "Get your own version badge on microbadger.com") | [![](https://images.microbadger.com/badges/image/javanile/lamp:5.6.svg)](https://microbadger.com/images/javanile/lamp:5.6 "Get your own image badge on microbadger.com") |
+
+
+
+lint
+https://github.com/replicatedhq/dockerfilelint
