@@ -28,15 +28,13 @@ RUN apt-get install -y cron rsyslog && rm -rf /etc/cron.*
 COPY crontab /etc/cron.d/crontab
 
 ## Apache
-RUN usermod -u 1000 www-data
-RUN groupmod -g 1000 www-data
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    mkdir /etc/apache2/ssl
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN mkdir /etc/apache2/ssl
-COPY https.crt /etc/apache2/ssl/https.crt
-COPY https.pem /etc/apache2/ssl/https.pem
-RUN a2enmod rewrite
-RUN a2enmod ssl
+COPY ssl/localhost.crt /etc/apache2/ssl/localhost.crt
+COPY ssl/localhost.pem /etc/apache2/ssl/localhost.pem
+RUN a2enmod rewrite && a2enmod ssl
 
 ## Command-line utils
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \

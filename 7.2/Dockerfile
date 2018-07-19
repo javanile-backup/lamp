@@ -1,47 +1,47 @@
+## LAMP with PHP 7.2
 FROM php:7.2.1-apache
+MAINTAINER Francesco Bianco <info@javanile.org>
+WORKDIR /var/www/html
+RUN apt-get update
 
 ## Extend PHP
-RUN apt-get update && apt-get install -y libc-client-dev libkrb5-dev
-RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
-RUN docker-php-ext-install imap
-RUN docker-php-ext-install mysqli
-RUN apt-get update && apt-get install -y zlib1g-dev
-RUN docker-php-ext-install zip
-RUN docker-php-ext-install pdo pdo_mysql
-RUN apt-get update && apt-get install -y libxslt-dev
-RUN docker-php-ext-install xsl
-RUN apt-get update && apt-get install -y zlib1g-dev libicu-dev g++
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-install intl
+RUN apt-get update && apt-get install -y zlib1g-dev && \
+    docker-php-ext-install zip
+RUN apt-get install -y libc-client-dev libkrb5-dev && \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
+    docker-php-ext-install imap
+RUN apt-get install -y libxslt-dev && \
+    docker-php-ext-install xsl
+RUN apt-get install -y zlib1g-dev libicu-dev g++ && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
-RUN apt-get update && apt-get install -y cron rsyslog
-RUN rm -rf /etc/cron.*
+RUN apt-get install -y cron rsyslog && rm -rf /etc/cron.*
 COPY crontab /etc/cron.d/crontab
-RUN chmod a+x /etc/cron.d/crontab
-RUN crontab /etc/cron.d/crontab
 
 ## Apache
-RUN usermod -u 1000 www-data
-RUN groupmod -g 1000 www-data
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data && \
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
+    mkdir /etc/apache2/ssl
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN mkdir /etc/apache2/ssl
-COPY https.crt /etc/apache2/ssl/https.crt
-COPY https.pem /etc/apache2/ssl/https.pem
-RUN a2enmod rewrite
-RUN a2enmod ssl
+COPY ssl/localhost.crt /etc/apache2/ssl/localhost.crt
+COPY ssl/localhost.pem /etc/apache2/ssl/localhost.pem
+RUN a2enmod rewrite && a2enmod ssl
 
 ## Command-line utils
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
     rm composer-setup.php
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
 ## Cleanup
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Running
 COPY foreground.sh /usr/local/bin/
-WORKDIR /var/www/html
 CMD ["foreground.sh"]
