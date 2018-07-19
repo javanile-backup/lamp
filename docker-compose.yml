@@ -2,6 +2,12 @@ version: '2'
 
 services:
 
+  lint:
+    image: replicated/dockerfilelint
+    working_dir: /lamp
+    volumes: [ '.:/lamp' ]
+    command: [ '7.2/Dockerfile', '7.1/Dockerfile', '7.0/Dockerfile', '5.6/Dockerfile' ]
+
   php56:
     build: ./5.6
 
@@ -13,3 +19,4 @@ services:
 
   php72:
     build: ./7.2
+

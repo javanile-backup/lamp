@@ -1,6 +1,6 @@
 ## LAMP with PHP 7.1
 FROM php:7.1.13-apache
-MAINTAINER Francesco Bianco <info@javanile.org>
+LABEL MAINTAINER = 'Francesco Bianco <info@javanile.org>'
 WORKDIR /var/www/html
 RUN apt-get update
 
@@ -24,7 +24,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
-RUN apt-get install -y cron rsyslog && rm -rf /etc/cron.*
+RUN apt-get install -y --no-install-recommends cron rsyslog && rm -rf /etc/cron.*
 COPY crontab /etc/cron.d/crontab
 
 ## Apache
@@ -42,7 +42,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     rm composer-setup.php
 RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+    apt-get install -y --no-install-recommends nodejs
 
 ## Cleanup
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
