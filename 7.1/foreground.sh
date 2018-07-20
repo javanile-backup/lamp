@@ -1,4 +1,6 @@
 #!/bin/bash
+## LAMP with PHP 7.1
+## Author: Francesco Bianco <bianco@javanile.org>
 
 ## run cron
 chmod a+x /etc/cron.d/crontab
