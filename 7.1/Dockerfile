@@ -33,7 +33,7 @@ RUN apt-get update \
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
-RUN apt-get install -y --no-install-recommends cron rsyslog
+RUN apt-get install -y --no-install-recommends cron rsyslog \
  && rm -rf /etc/cron.* /var/lib/apt/lists/*
 COPY crontab /etc/cron.d/crontab
 
