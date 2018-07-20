@@ -1,6 +1,6 @@
 ## LAMP with PHP 5.6
 FROM php:5.6.30-apache
-LABEL MAINTAINER='Francesco Bianco <info@javanile.org>'
+LABEL MAINTAINER="Francesco Bianco <info@javanile.org>"
 WORKDIR /var/www/html
 
 ## Extend PHP
