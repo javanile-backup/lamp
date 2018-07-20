@@ -18,34 +18,36 @@ RUN apt-get update \
  ## Intl extension
  && apt-get install -y --no-install-recommends zlib1g-dev libicu-dev g++ \
  && docker-php-ext-configure intl \
- && docker-php-ext-install intl
+ && docker-php-ext-install intl \
  ## Other extensions
- && docker-php-ext-install mysqli pdo pdo_mysql
-
+ && docker-php-ext-install mysqli pdo pdo_mysql \
+ ## Clean-up
+ && rm -rf /var/lib/apt/lists/*
 COPY php.ini /usr/local/etc/php/php.ini
 
 ## Crontab
-RUN apt-get install -y --no-install-recommends cron rsyslog && rm -rf /etc/cron.*
+RUN apt-get install -y --no-install-recommends cron rsyslog
+ && rm -rf /etc/cron.* /var/lib/apt/lists/*
 COPY crontab /etc/cron.d/crontab
 
 ## Apache
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data && \
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-    mkdir /etc/apache2/ssl
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data \
+ && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+ && mkdir /etc/apache2/ssl
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY ssl/localhost.crt /etc/apache2/ssl/localhost.crt
 COPY ssl/localhost.pem /etc/apache2/ssl/localhost.pem
 RUN a2enmod rewrite && a2enmod ssl
 
 ## Command-line utils
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet && \
-    rm composer-setup.php
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
-    bash nodesource_setup.sh && \
-    apt-get install -y --no-install-recommends nodejs
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+ && php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet \
+ && rm composer-setup.php
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh \
+ && bash nodesource_setup.sh && apt-get install -y --no-install-recommends nodejs \
+ && rm -rf /var/lib/apt/lists/*
 
-## Cleanup
+## Clean-up
 RUN apt-get clean && rm -rf /tmp/* /var/tmp/* && rm -rf /var/lib/apt/lists/*
 
 ## Running
