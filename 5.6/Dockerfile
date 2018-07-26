@@ -17,7 +17,7 @@ RUN apt-get update \
  && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
  && docker-php-ext-install imap \
  ## Gd extension
- && apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng12-dev \
+ && apt-get install -y --no-install-recommends libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
  && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
  && docker-php-ext-install gd \
  ## Mcrypt extension
@@ -27,9 +27,9 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends libxslt-dev \
  && docker-php-ext-install xsl \
  ## Intl extension
- && apt-get install -y --no-install-recommends php5-intl \
- && find /usr/lib/php5/ -name intl.so -exec mv -t "$(php -r 'echo ini_get("extension_dir");')" {} + \
- && echo "extension=intl.so" >> /usr/local/etc/php/conf.d/custom.ini \
+ && apt-get install -y --no-install-recommends zlib1g-dev libicu-dev g++ \
+ && docker-php-ext-configure intl \
+ && docker-php-ext-install intl \
  ## Other extensions
  && docker-php-ext-install mysql mysqli pdo pdo_mysql sockets \
  ## Clean-up layer
