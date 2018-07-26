@@ -55,7 +55,8 @@ RUN a2enmod rewrite && a2enmod ssl
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
  && php composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet \
  && rm composer-setup.php
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh \
+RUN apt-get update && apt-get install -y --no-install-recommends gnupg \
+ && curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh \
  && bash nodesource_setup.sh && apt-get install -y --no-install-recommends nodejs \
  && rm -rf /var/lib/apt/lists/*
 
