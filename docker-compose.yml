@@ -10,13 +10,23 @@ services:
 
   php56:
     build: ./5.6
+    ports: [ '8056:80' ]
+    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
+    environment:
+      - PHP_MEMORY_LIMIT=128M
 
   php70:
     build: ./7.0
+    ports: [ '8070:80' ]
+    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
 
   php71:
     build: ./7.1
+    ports: [ '8071:80' ]
+    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
 
   php72:
     build: ./7.2
+    ports: [ '8072:80' ]
+    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
 

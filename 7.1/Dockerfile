@@ -3,6 +3,10 @@ FROM php:7.1.13-apache
 LABEL MAINTAINER="Francesco Bianco <info@javanile.org>"
 WORKDIR /var/www/html
 
+## Environment
+ENV HTML_PUBLIC=
+ENV PHP_MEMORY_LIMIT=32M
+
 ## Extend PHP
 RUN apt-get update \
  ## Zip extension
