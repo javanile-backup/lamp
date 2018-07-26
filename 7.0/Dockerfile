@@ -1,5 +1,5 @@
 ## LAMP with PHP 7.0
-FROM php:7.0.27-apache
+FROM php:7.0-apache
 LABEL MAINTAINER="Francesco Bianco <info@javanile.org>"
 WORKDIR /var/www/html
 
