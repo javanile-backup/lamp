@@ -6,6 +6,7 @@ WORKDIR /var/www/html
 ## Environment
 ENV HTML_PUBLIC=
 ENV PHP_MEMORY_LIMIT=32M
+ENV PHP_MAX_EXECUTION_TIME=30
 
 ## Extend PHP
 RUN apt-get update \

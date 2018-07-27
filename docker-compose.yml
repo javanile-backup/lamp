@@ -11,7 +11,7 @@ services:
   php56:
     build: ./5.6
     ports: [ '8056:80' ]
-    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
+    volumes: [ './html:/var/www/html', './log/5.6:/log' ]
 
   php70:
     build: ./7.0
