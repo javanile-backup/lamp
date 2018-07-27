@@ -39,7 +39,7 @@ COPY crontab /etc/cron.d/crontab
 ## Apache
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data \
  && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
- && mkdir /etc/apache2/ssl
+ && mkdir /etc/apache2/ssl && mkdir /log && chown www-data:www-data /log
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY ssl/localhost.crt /etc/apache2/ssl/localhost.crt
 COPY ssl/localhost.pem /etc/apache2/ssl/localhost.pem
