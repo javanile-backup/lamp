@@ -30,6 +30,10 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 COPY php.ini /usr/local/etc/php/php.ini
 
+## Sendmail
+RUN apt-get update && apt-get install -y --no-install-recommends ssmtp \
+ && echo "FromLineOverride=YES" >> /etc/ssmtp/ssmtp.conf && rm -rf /var/lib/apt/lists/*
+
 ## Crontab
 RUN apt-get update \
  && apt-get install -y --no-install-recommends cron rsyslog \

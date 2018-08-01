@@ -16,14 +16,17 @@ services:
   php70:
     build: ./7.0
     ports: [ '8070:80' ]
-    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
+    volumes: [ './html:/var/www/html', './log/7.0:/log' ]
 
   php71:
     build: ./7.1
     ports: [ '8071:80' ]
-    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
+    volumes: [ './html:/var/www/html', './log/7.1:/log' ]
 
   php72:
     build: ./7.2
     ports: [ '8072:80' ]
-    volumes: [ './phpinfo.php:/var/www/html/phpinfo.php' ]
+    volumes: [ './html:/var/www/html', './log/7.2:/log' ]
+
+  mail:
+    image: namshi/smtp
