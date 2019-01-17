@@ -32,7 +32,7 @@ RUN apt-get update \
  && docker-php-ext-configure intl \
  && docker-php-ext-install intl \
  ## Other extensions
- && docker-php-ext-install mysql mysqli pdo pdo_mysql sockets \
+ && docker-php-ext-install mysql mysqli pdo pdo_mysql sockets gettext \
  ## Clean-up layer
  && rm -rf /var/lib/apt/lists/*
 COPY php.ini /usr/local/etc/php/php.ini
